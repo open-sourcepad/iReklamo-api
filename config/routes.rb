@@ -12,5 +12,7 @@ Rails.application.routes.draw do
         resources :likes
       end
     end
+
+    resources :complaints, only: [:index]
   end
 end
