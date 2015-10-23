@@ -8,5 +8,11 @@ angular.module('iReklamo').controller 'MainCtrl',
         controller: 'SignupCtrl'
       )
 
+     $scope.logIn = () ->
+      $modal.open(
+        templateUrl: 'views/app/modals/login.html'
+        controller: 'LoginCtrl'
+      )
+
       $state.go 'dashboard.reklamo'
   ]
