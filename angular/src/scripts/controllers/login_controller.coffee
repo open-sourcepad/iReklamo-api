@@ -1,13 +1,13 @@
 'use strict'
 
-angular.module('iReklamo').controller 'SignupCtrl',
+angular.module('iReklamo').controller 'LoginCtrl',
   [ '$scope', '$state', 'RegistrationSvc', 'Password', 'Session',
    ( $scope,   $state,   RegistrationSvc,   Password,   Session ) ->
-     $scope.reallySignUp =() ->
-      RegistrationSvc.save { user: $scope.user }
+     $scope.reallyLogIn =() ->
+      RegistrationSvc.login { user: $scope.user }
         .$promise.then (data) ->
-          swal("Able to sign up")
+          swal("Able to log in")
         , () ->
-          swal("Unable to sign up")
+          swal("Unable to log in")
 
   ]

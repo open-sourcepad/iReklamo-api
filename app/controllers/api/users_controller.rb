@@ -13,6 +13,12 @@ class Api::UsersController < ApplicationController
   def login
     @user = User.find_by(email_address: login_params[:email_address])
     @success = @user && @user.authenticate(login_params[:password]) ? true : false
+
+    if @success
+      render json: @user
+    else
+      render_error
+    end
   end
 
   private

@@ -1,0 +1,19 @@
+.modal-title
+  .container
+    .row
+      .col-md-12
+        h3 Log In
+.modal-body
+  form.form.form-horizontal(name="form", ng-submit="reallyLogIn(form)", novalidate="novalidate")
+    .container
+      .row
+        .col-md-12
+          input(type="text", name="email_address", ng-disabled="form.$loading" ng-model="user.email_address", placeholder="Email Address", ng-required="true")
+          p.text-error(ng-show="form.email_address.$invalid && form.$submitted") Wrong email address.
+
+        .col-md-12
+          input(type="text", name="password", ng-disabled="form.$loading" ng-model="user.password", placeholder="Password", ng-required="true")
+          p.text-error(ng-show="form.password.$invalid && form.$submitted") Wrong password.
+
+        .form-group
+          button.btn.btn-success(type="submit", ng-disabled="form.$loading") Log in
