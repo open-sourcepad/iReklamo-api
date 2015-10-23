@@ -1,7 +1,7 @@
 if @complaint.errors.empty?
 
   json.success "true"
-  json.message "Complaint Created"
+  json.message "Complaint Updated"
   json.partial! "api/complaints/complaint", complaint: @complaint
 
 else

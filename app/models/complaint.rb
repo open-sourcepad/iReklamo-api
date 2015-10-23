@@ -7,9 +7,9 @@ class Complaint < ActiveRecord::Base
   has_attached_file :image, default_url: "/images/missing.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
-  has_many :comments
-  has_many :likes
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
-  geocoded_by :street_address 
+  geocoded_by :street_address
 
 end

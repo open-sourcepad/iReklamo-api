@@ -1,8 +1,9 @@
 if @user.errors.empty?
 
   json.success "true"
+  json.message "User Created"
   json.partial! "api/users/user", user: @user
-  
+
 else
 
   json.success "false"
