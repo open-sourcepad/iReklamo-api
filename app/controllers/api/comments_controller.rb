@@ -1,4 +1,6 @@
 class Api::CommentsController < ApplicationController
+  before_filter :authenticate_token_from_user!
+
   def create
     new_comment = Comment.create(create_comment_params)
 
