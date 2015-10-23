@@ -1,4 +1,6 @@
 class Api::LikesController < ApplicationController
+  before_filter :authenticate_token_from_user!
+
   def create
     new_like = Like.create(create_like_params)
 
