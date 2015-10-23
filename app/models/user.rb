@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
       random_token = SecureRandom.urlsafe_base64(nil, false)
       break random_token unless User.exists?(access_token: random_token)
     end
+    save
   end
 
 end
