@@ -51,8 +51,7 @@ ActiveRecord::Schema.define(version: 20151023111852) do
     t.datetime "updated_at"
   end
 
-  add_index "likes", ["complaint_id"], name: "index_likes_on_complaint_id", using: :btree
-  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
+  add_index "likes", ["user_id", "complaint_id"], name: "index_likes_on_user_id_and_complaint_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email_address"
