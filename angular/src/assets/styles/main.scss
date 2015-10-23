@@ -1,0 +1,79 @@
+$icon-font-path: "../fonts/";
+
+@import "../../../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
+@import "maps";
+
+
+@media (min-width: 1200px) {
+  .container{
+    width: 1250px;
+  }
+}
+
+body {
+  background-color: #f8f8f8;
+}
+
+.navbar {
+  min-height: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+
+  .navbar-brand {
+    padding: 4px 15px;
+    font-size: 14px;
+  }
+
+  a.navbar-brand {
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+}
+
+.nav {
+  margin-bottom: 10px;
+  font-size: 16px;
+
+  > li > a {
+    padding: 10px 15px;
+    text-decoration: underline;
+  }
+}
+
+
+.showback {
+  background: #ffffff;
+  padding: 18px;
+  margin-bottom: 15px;
+  box-shadow: 0px 3px 2px #aab2bd;
+  border-radius: 3px;
+
+  .showback-header {
+    border-bottom: dotted 1px #cecece;
+    color: blue;
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 4px;
+    }
+  }
+
+  .showback-content {
+    margin-top: 15px;
+
+    .lead {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+a {
+  text-decoration: underline;
+
+  &.btn, &.no-ul {
+    text-decoration: none;
+  }
+}

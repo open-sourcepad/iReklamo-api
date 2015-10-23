@@ -1,0 +1,67 @@
+.row
+  .col-sm-4
+    h4.mt-0.provider-name {{ garage.service_provider_name }}
+    h2.mt-0 {{ garage.name }}
+    h4 {{ garage.address1 }}
+    .row
+      .col-sm-10
+        strong No. of Monthly spaces available: &nbsp;&nbsp;
+        span.badge {{ garage.info.available_for_sale }}
+    .row
+      .col-sm-6
+        strong Operating Hours:
+    .row
+      .col-sm-5
+        span.indented Mon to Fri:
+      .col-sm-5
+        span(ng-bind='garage.hours("monday")')
+    .row
+      .col-sm-5
+        span.indented Saturday:
+      .col-sm-5
+        span(ng-bind='garage.hours("saturday")')
+    .row
+      .col-sm-5
+        span.indented Sunday:
+      .col-sm-5
+        span(ng-bind='garage.hours("sunday")')
+    .row
+      .col-sm-5
+        strong Type:
+      .col-sm-5 {{ garage.parking_type }}
+    .row
+      .col-sm-5
+        strong Entrance Height:
+      .col-sm-5 {{ garage.entrance_height }}
+
+  .col-sm-8
+    .row
+      .col-md-6.col-sm-6
+        .monthly-rate
+          | Standard Monthly Rate: ${{ garage.rate("month").member }}
+        .daily-rates
+          .row
+            .col-sm-4
+              strong Daily Rate
+            .col-sm-3
+              strong Member
+            .col-sm-5
+              strong Non-Member
+          .row
+            .col-sm-4 Early-Bird
+            .col-sm-3.text-right ${{ garage.rate("day", "Early-Bird").member }}
+            .col-sm-4.text-right ${{ garage.rate("day", "Early-Bird").non_member }}
+          .row.row
+            .col-sm-4 Daily
+            .col-sm-3.text-right ${{ garage.rate("day", "Daily").member }}
+            .col-sm-4.text-right ${{ garage.rate("day", "Daily").non_member }}
+          .row.row
+            .col-sm-4 Evening
+            .col-sm-3.text-right ${{ garage.rate("day", "Evening").member }}
+            .col-sm-4.text-right ${{ garage.rate("day", "Evening").non_member }}
+
+        p.text-danger *
+          span.text-muted &nbsp;Rates displayed above is for Monday to Friday only...
+
+      .col-md-6.col-sm-6
+        img(src="//placehold.it/300x300", alt="parking provider logo goes here")

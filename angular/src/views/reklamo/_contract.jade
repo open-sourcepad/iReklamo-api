@@ -1,0 +1,77 @@
+.row(ng-init="garageFromOutside = garage", ng-if="session.loggedIn && session.contractable")
+  .col-sm-12
+    hr
+    p.lead Select Parking Product
+      span.commutyble-help-icon.indented(sp-popover-info, popover-url="info.html", popover-placement="top", data-class="popover-lg")
+      script(id="info.html", type="text/ng-template")
+        p Select the parking product that best suits your needs:
+        p <b>Bank Transfer vs Credit Card</b> - Select the most suitable source of payment:
+        p.pl-15 <b>Bank Transfer/eCheck:</b> When selecting Bank Transfer (eCheck), the processing time takes <b>approximately four (4) business days and must be completed before the funds are available for use</b>. There is no additional fee for selecting Bank Transfer (eCheck).
+        p.pl-15 <b>Credit Card:</b> Credit card processing is <b>immediate</b>, however <b>incurs a processing fee of 3.5%</b> of the amount being charged.
+        p <b>Partial Month vs. Full Month:</b> When applying for a monthly space, customers may select the beginning  of the upcoming month and start parking on the 1st of that month, or if spaces are currently available, customers may select “partial month” to begin parking earlier. <b>PLEASE NOTE: that when selecting partial month, customers must prepay the partial month PLUS the next full month</b>. Partial month parking is only available for the first month of a new contract.
+        p Unless pre-approved by your Parking Service Provider, monthly parking fees are non-refundable.
+
+    form.form.form-horizontal(name="form", novalidate="novalidate", ng-controller="SelectParkingProductCtrl", ng-init="init()")
+      alert(type="warning", ng-if="customerHasActiveContract && pendingContract.garage.id != garage.id && pendingContract.state == 'active'")
+        | Warning: You have an active contract already. If you purchase a new contract, existing days on your current contract will not get refunded.
+
+      .form-group
+        label.control-label.col-sm-offset-2.col-sm-4 Desired start date (if partial month):
+        .col-sm-3
+          .input-group
+            input.form-control(type='text', name='start_date', datepicker-popup='{{format}}', ng-model='chosenStartDateForPartialMonth', ng-change="choosePartialMonth()", is-open='opened', min-date='minDate', max-date='maxDate', datepicker-options='dateOptions', ng-required='true', close-text='Close', ng-click='open($event)')
+            span.input-group-btn
+              button.btn.btn-default(type='button', ng-click='open($event)')
+                i.glyphicon.glyphicon-calendar
+          p.text-error(ng-show="form.start_date.$invalid && submitted") You need a start date.
+
+      .form-group.pt-20
+        .col-sm-offset-2.col-sm-4
+          a.btn.btn-primary.btn-block(ng-click="choosePartialMonth()", ng-class="{ 'btn-success active': contractDuration == 'partial'}" popover="{{ partialMonthPopoverText }}" popover-placement="top" popover-trigger="mouseenter")
+            span Partial Month <br/>
+            span {{ chosenStartDateForPartialMonth | date:'MMMM d, yyyy' }} to {{ endOfNextMonth }}
+        .col-sm-4
+          a.btn.btn-primary.btn-block(ng-click="chooseFullMonth()", ng-class="{ 'btn-success active': contractDuration == 'full' }")
+            span One Month <br/>
+            span {{ startOfNextMonth }} to {{ endOfNextMonth }}
+
+      .form-group(ng-if="loggedIn")
+        .col-sm-offset-2.col-sm-4
+          a.btn.btn-primary.btn-block(btn-radio="creditCard.id", ng-model="pendingContract.payment_mechanism_id", ng-disabled="creditCards.length == 0", ng-class="{ 'btn-success': creditCards.length > 0 && pendingContract.payment_mechanism_id == creditCard.id }")
+            span Monthly Parking (Pay by Credit Card) <br/>
+            span {{ priceForCreditCard() | currency }} ({{ priceForCreditCard() - basePrice() | currency }} (3.5%) fee) <br/>
+            span(ng-show="creditCards.length == 0") You need to connect a credit card.
+        .col-sm-4(tooltip="Can't load using an unverified bank account.", tooltip-enable="{{ bankAccount.synapse_verification_status == 0 }}")
+          a.btn.btn-primary.btn-block(btn-radio="bankAccount.id", ng-model="pendingContract.payment_mechanism_id", ng-disabled="bankAccounts.length == 0 ||  bankAccount.synapse_verification_status == 0 ", ng-class="{ 'btn-success': bankAccounts.length > 0 && pendingContract.payment_mechanism_id == bankAccount.id }")
+            span Monthly Parking (eCheck Discount) <br/>
+            span {{ priceForBankAccount() | currency }} ($0 fee) <br/>
+            span(ng-show="bankAccounts.length == 0") You need to connect a bank account.
+
+      .form-group
+        .col-sm-offset-2.col-sm-4
+          a.btn.btn-primary.btn-block(btn-radio="'One-time'", ng-model="pendingContract.contract_details.timeframe", ng-class="{ 'btn-success': pendingContract.contract_details.timeframe == 'One-time' }") Single Payment
+        .col-sm-4
+          a.btn.btn-primary.btn-block(btn-radio="'Recurring'", ng-model="pendingContract.contract_details.timeframe", ng-class="{ 'btn-success': pendingContract.contract_details.timeframe == 'Recurring' }") Recurring Auto-Payment
+
+      .form-group
+        .col-sm-6
+          .checkbox
+            label.control-label(for="hasKeycard")
+              input(type="checkbox", ng-model="hasKeycard")
+              | I have a building access "key card" for the building where I park my car
+        .col-sm-4
+          input.form-control(type="text", name="keycard_number", ng-model="pendingContract.contract_details.keycard_number", placeholder="Keycard Number", ng-disabled="!hasKeycard", ng-required="hasKeycard")
+          p.text-error(ng-show="form.keycard_number.$invalid && submitted") If you checked the box, you need a keycard number.
+
+      .form-group
+        .col-sm-6
+          .checkbox
+            label.control-label(for="expires_today")
+              input(type="checkbox", name="expires_today", ng-model="pendingContract.contract_details.expires_today")
+              | (Developers): Expire today?
+
+      .form-group
+        .col-sm-offset-2.col-sm-8
+          a.btn.btn-success.btn-block.btn-lg(ng-click="openConfirmContractModal(form)", ng-disabled="!pendingContract.contract_details.timeframe || !pendingContract.payment_mechanism_id")
+            span Review Order Summary <br/>
+            span(ng-show="pendingContract.contract_details.price") {{ pendingContract.contract_details.price | currency }}

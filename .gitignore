@@ -33,3 +33,7 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+
+# ignore angular files
+angular/node_modules
+angular/bower_components

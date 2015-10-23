@@ -1,0 +1,106 @@
+.angular-google-map
+.angular-google-map-container {
+  height:800px;
+  width: 800px;
+}
+
+#search-container {
+  margin-top: -30px;
+
+  #map {
+    height: 800px;
+    width: 800px;
+  }
+
+  #search-results {
+    p {
+      font-size: 16px;
+    }
+
+    ul {
+      box-sizing: border-box;
+      z-index: 2;
+      height: 800px;
+      overflow: scroll;
+      padding-left: 0;
+    }
+
+    li {
+      list-style: none;
+      display: block;
+      padding: 10px;
+      background: white;
+      margin-bottom: 10px;
+      border: #cecece 1px solid;
+
+      &:hover {
+        border: #006395 1px solid;
+        background: #e5f5ff;
+      }
+    }
+  }
+}
+
+.map-overlay {
+  height: 32px;
+  width: 32px;
+  display: block;
+  text-align: center;
+  color: white;
+  font-size: 11px;
+  // background: white;
+  border-radius: 50%;
+  z-index: 104;
+  margin-top: -12px;
+  margin-left: -4px;
+  padding-top: 8px;
+}
+
+p#proximity-slider {
+  margin-top: 5px;
+}
+
+.gm-style-iw {
+  overflow: hidden !important;
+  line-height: 1.35;
+}
+
+.infowindow-scrollfix {
+  line-height: 1.35;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.map-pins {
+  display: inline-block;
+  position: relative;
+  border-radius: 48px 48px 48px 0;
+  width: 48px;
+  height: 48px;
+  transform: rotate(-45deg);
+
+  &.blue-pin {
+    background: #15ace5;
+    border: 1px solid #31708f;
+  }
+  &.green-pin, &:hover {
+    background: #62bea2;
+    border: 1px solid #329e7d;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+
+  .price {
+    color: white;
+    height: 46px;
+    width: 46px;
+    transform: rotate(45deg);
+    text-align: center;
+  }
+  .amount {
+    margin-top: 14px;
+    display: inline-block;
+    font-size: 14px;
+  }
+}
