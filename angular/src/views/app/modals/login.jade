@@ -4,8 +4,8 @@
       span(aria-hidden="true") &times;
     h4.modal-title Already a Member?
 
-  .modal-body
-    form.form.form-horizontal(name="form", ng-submit="reallyLogIn(form)", novalidate="novalidate")
+  form.form.form-horizontal(name="form", ng-submit="reallyLogIn(form)", novalidate="novalidate")
+    .modal-body
       .form-group.form-group-lg
         label.control-label.col-sm-4 Email
         .col-sm-6
@@ -15,8 +15,8 @@
       .form-group.form-group-lg
         label.control-label.col-sm-4 Password
         .col-sm-6
-          input.form-control(type="text", name="password", ng-disabled="form.$loading" ng-model="user.password", placeholder="Password", ng-required="true")
+          input.form-control(type="password", name="password", ng-disabled="form.$loading" ng-model="user.password", placeholder="Password", ng-required="true")
           p.text-error(ng-show="form.password.$invalid && form.$submitted") Wrong password.
 
-  .modal-footer
-    button.btn.btn-success(type="submit", ng-disabled="form.$loading") Log in
+    .modal-footer
+      button.btn.btn-success(type="submit", ng-disabled="form.$loading") Log in

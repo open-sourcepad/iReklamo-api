@@ -1,9 +1,13 @@
 .navbar.navbar-default(role="navigation")
-  .container-fluid
-    a.navbar-brand(ui-sref="root") iReklamo
-    a.navbar-brand.pull-right(ng-cloak, ng-click="signUp()") Sign Up
-    a.navbar-brand.pull-right(ng-cloak, ng-click="logIn()") Log In
-.clearfix
+  .container-fluid(ng-cloak)
+    .row
+      .col-sm-8
+        a.navbar-brand(ui-sref="root") iReklamo
+      .col-sm-4
+        .pull-right
+          a.navbar-brand(ng-hide="session.online()" ng-click="signUp()") Sign Up
+          a.navbar-brand(ng-hide="session.online()" ng-click="logIn()") Log In
+          a.navbar-brand(ng-if="session.online()" ng-click="logOut()") Logout
 
 .container-fluid
   div(ui-view="content")

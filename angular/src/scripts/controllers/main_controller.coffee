@@ -1,19 +1,25 @@
 'use strict'
 
 angular.module('iReklamo').controller 'MainCtrl',
-  [ '$scope', '$state', '$modal', ( $scope, $state, $modal ) ->
+  [ '$scope', '$state', '$modal', 'Session',
+   ( $scope,   $state,   $modal,   Session ) ->
 
-     $scope.signUp = () ->
+    $scope.session = Session
+
+    $scope.signUp = ->
       $modal.open(
         templateUrl: 'views/app/modals/sign_up.html'
         controller: 'SignupCtrl'
       )
 
-     $scope.logIn = () ->
+    $scope.logIn = ->
       $modal.open(
         templateUrl: 'views/app/modals/login.html'
         controller: 'LoginCtrl'
       )
+
+    $scope.logOut = ->
+      Session.logout()
 
       $state.go 'dashboard.reklamo'
   ]

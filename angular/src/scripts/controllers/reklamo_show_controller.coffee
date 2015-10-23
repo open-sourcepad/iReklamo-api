@@ -7,8 +7,6 @@ angular.module('iReklamo').controller 'ReklamoShowCtrl',
     Complaint.get { id: $stateParams.id}
       .$promise.then (data) ->
         $scope.complaint = data.complaint
-        console.log '$scope.complaint'
-        console.log $scope.complaint
       , (error) ->
         swal "Sorry!", "Something gone awry. Bummer.", "error"
   ]

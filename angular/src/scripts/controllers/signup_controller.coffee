@@ -8,6 +8,8 @@ angular.module('iReklamo').controller 'SignupCtrl',
       RegistrationSvc.save { user: $scope.user }
         .$promise.then (data) ->
           swal "Mabuhay", "Welcome to the iReklamo Community. #ParaSaBayan", "success"
+          Session.set data
+          $scope.modal.dismiss()
         , ->
           swal "Bummer", "Unable to sign up. Give it another try.", "error"
 
