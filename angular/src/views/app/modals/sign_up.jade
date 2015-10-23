@@ -1,0 +1,27 @@
+.modal-title
+  .container
+    .row
+      .col-md-12
+        h3 Sign Up
+.modal-body
+  form.form.form-horizontal(name="form", ng-submit="reallySignUp(form)", novalidate="novalidate")
+    .container
+      .row
+        .col-md-12
+          input(type="text", name="email_address", ng-disabled="form.$loading" ng-model="user.email_address", placeholder="Email Address", ng-required="true")
+          p.text-error(ng-show="form.email_address.$invalid && form.$submitted") Wrong email address.
+
+        .col-md-12
+          input(type="text", name="password", ng-disabled="form.$loading" ng-model="user.password", placeholder="Password", ng-required="true")
+          p.text-error(ng-show="form.password.$invalid && form.$submitted") Wrong password.
+
+        .col-md-12
+          input(type="text", name="password", ng-disabled="form.$loading" ng-model="user.password_confirmation", placeholder="Password Confirmation", ng-required="true")
+          p.text-error(ng-show="form.password_confirmation.$invalid && form.$submitted") Wrong password.
+
+        .col-md-12
+          input(type="text", name="password", ng-disabled="form.$loading" ng-model="user.name", placeholder="Name", ng-required="true")
+          p.text-error(ng-show="form.name.$invalid && form.$submitted") Wrong password.
+
+        .form-group
+          button.btn.btn-success(type="submit", ng-disabled="form.$loading") Sign Up

@@ -2,6 +2,12 @@ class Api::UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
+
+    if @user.valid?
+      render json: @user
+    else
+      render_error
+    end
   end
 
   def login
