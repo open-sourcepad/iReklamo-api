@@ -1,8 +1,7 @@
 #search-container
   .row
     .col-sm-12
-      .text-center
-        i.fa.fa-refresh.fa-spin.fa-5x(ng-show='busy')
+      i.fa.fa-refresh.fa-spin.fa-5x.mb-20(ng-show='busy')
 
   .row(ng-show="!busy")
     .col-sm-offset-3.col-sm-9
@@ -23,14 +22,17 @@
 
         ul(ng-if="complaints.length > 0")
           li(ng-repeat="qd in complaints", ng-click="navigateToPin(qd)")
-            .complaint-title
-              strong {{ qd.title }}
-            //- strong PPPP <br/><br/>
-            //- .pull-right
-            //-   strong PPPP <br/>
-            //-   | per PPP
-            //- span {{ qd.distance | number: 2 }} miles away <br/>
-            //- | M-F:
+            .row
+              .col-sm-12
+                .complaint-title
+                  strong {{ qd.title }}
+            .row
+              .col-sm-8
+                span.label.label-info {{ qd. category }}
+              .col-sm-4.pl-0
+                .pull-right
+                  i.fa.fa-thumbs-o-up
+                  | &nbsp; {{ qd.likes }}
 
     .col-sm-9
       #map

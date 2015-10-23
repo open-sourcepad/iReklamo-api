@@ -5,7 +5,7 @@ $icon-font-path: "../fonts/";
 @import "maps";
 
 @media (min-width: 1200px) {
-  .container{
+  .container {
     width: 1250px;
   }
 }
@@ -42,7 +42,6 @@ body {
   }
 }
 
-
 .showback {
   background: #ffffff;
   padding: 18px;
@@ -50,11 +49,12 @@ body {
   box-shadow: 0px 3px 2px #aab2bd;
   border-radius: 3px;
 
-  .showback-header {
-    border-bottom: dotted 1px #cecece;
-    color: blue;
+  .showback-header, .user-name, .blueish {
+    color: #31708f;
+  }
 
-    h4 {
+  .showback-header {
+    h4, h5 {
       margin-top: 0;
       margin-bottom: 4px;
     }
@@ -76,4 +76,11 @@ a {
   &.btn, &.no-ul {
     text-decoration: none;
   }
+}
+
+.sm-row {
+  background-color: #e9eaed;
+  margin-top: 1px;
+  padding: 4px;
+  word-wrap: break-word;
 }

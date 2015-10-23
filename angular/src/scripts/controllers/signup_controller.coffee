@@ -1,13 +1,18 @@
 'use strict'
 
 angular.module('iReklamo').controller 'SignupCtrl',
-  [ '$scope', '$state', 'RegistrationSvc', 'Password', 'Session',
-   ( $scope,   $state,   RegistrationSvc,   Password,   Session ) ->
-     $scope.reallySignUp =() ->
+  [ '$scope', '$state', '$modalInstance', 'RegistrationSvc', 'Password', 'Session',
+   ( $scope,   $state,   $modalInstance,   RegistrationSvc,   Password,   Session ) ->
+
+    $scope.reallySignUp = ->
       RegistrationSvc.save { user: $scope.user }
         .$promise.then (data) ->
-          swal("Able to sign up")
-        , () ->
-          swal("Unable to sign up")
+          swal "Mabuhay", "Welcome to the iReklamo Community. #ParaSaBayan", "success"
+        , ->
+          swal "Bummer", "Unable to sign up. Give it another try.", "error"
+
+    $scope.modal =
+      dismiss: ->
+        $modalInstance.dismiss()
 
   ]

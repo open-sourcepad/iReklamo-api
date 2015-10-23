@@ -42,3 +42,11 @@ angular.module('iReklamo').config ($stateProvider, $urlRouterProvider) ->
           templateUrl: 'views/reklamo/index.html'
           controller: 'ReklamoCtrl'
 
+    .state 'dashboard.reklamo-detail',
+      url: '^/reklamo/:id'
+      data:
+        authenticate: false
+      views:
+        'content@dashboard':
+          templateUrl: 'views/reklamo/show.html'
+          controller: 'ReklamoShowCtrl'

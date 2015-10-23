@@ -59,7 +59,11 @@ angular.module('iReklamo').factory 'Map',
           <h4 class='complaint-title'>#{g.title}</h4>
           <div><img src="http://localhost:3000#{g.image_url}"></div>
           <p class="complaint-description">#{g.description}</p>
-          <a href='/#/reklamo/#{g.id}'>More Details</a>
+          <div class="row">
+          <div class="col-sm-8"><a href='/#/reklamo/#{g.id}'>More Details</a></div>
+          <div class="col-sm-4"><div class='pull-right'>
+          <i class="fa fa-thumbs-o-up"></i>&nbsp;#{g.likes}</div>
+          </div>
         </div>
         """
 
@@ -125,7 +129,7 @@ angular.module('iReklamo').factory 'Map',
       lon2 = ne.lng() / 57.2958
       # distance = circle radius from center to Northeast corner of bounds
       radius = r * Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1))
-      radius / 1.5
+      radius / 1.25
       # convert to meters
       # radius = radius*1609.34
 
