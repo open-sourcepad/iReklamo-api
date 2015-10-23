@@ -37,3 +37,4 @@ bower.json
 # ignore angular files
 angular/node_modules
 angular/bower_components
+angular/.tmp
