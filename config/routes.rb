@@ -8,7 +8,8 @@ Rails.application.routes.draw do
       end
 
       resources :complaints, only: [:create], controller: "users/complaints" do
-        resources :comments, controller: "comments"
+        resources :comments
+        resources :likes
       end
     end
   end

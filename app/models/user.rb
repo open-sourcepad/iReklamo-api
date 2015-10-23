@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   has_many :complaints
   has_many :comments
+  has_many :likes
 
   after_create :generate_access_token
 

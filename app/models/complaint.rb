@@ -8,4 +8,5 @@ class Complaint < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   has_many :comments
+  has_many :likes
 end

@@ -1,5 +1,4 @@
 class Api::CommentsController < ApplicationController
-
   def create
     new_comment = Comment.create(create_comment_params)
 
