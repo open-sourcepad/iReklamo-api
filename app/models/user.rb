@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   validates :email_address, uniqueness: true
   validates :email_address, :password, presence: true
 
+  has_many :complaints
+  
   after_create :generate_access_token
 
   def generate_access_token
