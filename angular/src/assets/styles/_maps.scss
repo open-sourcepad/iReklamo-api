@@ -1,15 +1,7 @@
-.angular-google-map
-.angular-google-map-container {
-  height:800px;
-  width: 800px;
-}
-
 #search-container {
-  margin-top: -30px;
-
   #map {
     height: 800px;
-    width: 800px;
+    width: 100%;
   }
 
   #search-results {
@@ -67,8 +59,20 @@ p#proximity-slider {
 
 .infowindow-scrollfix {
   line-height: 1.35;
-  overflow: hidden;
-  white-space: nowrap;
+
+  .complaint-title {
+    color: #15ACE5;
+    margin: 0;
+  }
+  .complaint-description {
+    width: 500px;
+    max-width: 500px;
+    word-wrap: break-word;
+  }
+  img {
+    width: 100%;
+    margin: 10px 0;
+  }
 }
 
 .map-pins {
@@ -90,17 +94,12 @@ p#proximity-slider {
   &:hover {
     cursor: pointer;
   }
-
-  .price {
+  .pin-icon {
     color: white;
     height: 46px;
     width: 46px;
     transform: rotate(45deg);
+    padding-top: 12px;
     text-align: center;
-  }
-  .amount {
-    margin-top: 14px;
-    display: inline-block;
-    font-size: 14px;
   }
 }

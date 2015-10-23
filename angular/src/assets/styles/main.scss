@@ -1,8 +1,8 @@
 $icon-font-path: "../fonts/";
 
 @import "../../../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
+@import "utilities";
 @import "maps";
-
 
 @media (min-width: 1200px) {
   .container{

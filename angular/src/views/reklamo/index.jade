@@ -1,37 +1,36 @@
-#search-container.container
+#search-container
   .row
     .col-sm-12
-      h1(ng-show='busy') Finding location...
+      .text-center
+        i.fa.fa-refresh.fa-spin.fa-5x(ng-show='busy')
 
-  .row
-    form(role='form', name='form', ng-submit="search($event, form)", novalidate)
-      .col-md-5
+  .row(ng-show="!busy")
+    .col-sm-offset-3.col-sm-9
+      form.mb-20(role='form', name='form', ng-submit="search($event, form)", novalidate)
         .input-group
           input.form-control(type="text", id="search", ng-model='searchTerm')
           span.input-group-btn
             button.btn.btn-primary(type='submit') Search
 
-
-  br
   .row
     .col-sm-3
       #search-results(ng-switch="true")
-        div(ng-if="filteredGarages().length == 0")
+        div(ng-if="complaints.length == 0")
           p
-            strong We can't seem to ﬁnd any matching parking nearby.
-          p That doesn't mean there's no parking here, it could be due to your search filters or we just don't have recent data for this area.
-          p Try searching in a different area or adjust your search preferences.
+            strong We can't seem to ﬁnd any matching complaints nearby.
+          p That doesn't mean there's no problem here, it could be due to non posting of iReklamos or we just don't have recent data for this area.
+          p Try searching in a different area.
 
-        ul(ng-if="garages.length > 0")
-          li(ng-repeat="sg in garages | garages:preferences", ng-click="navigateToPin(sg)", ng-show="sg.rate(interval).member > 0")
-            .provider-name
-              strong {{ sg.service_provider_name }}
-            strong {{ sg.name }} <br/><br/>
-            .pull-right
-              strong {{ "$" + sg.rate(interval).member }} <br/>
-              | per {{ interval }}
-            span {{ sg.distance | number: 2 }} miles away <br/>
-            | M-F: {{ sg.hours("monday") }}
+        ul(ng-if="complaints.length > 0")
+          li(ng-repeat="qd in complaints", ng-click="navigateToPin(qd)")
+            .complaint-title
+              strong {{ qd.title }}
+            //- strong PPPP <br/><br/>
+            //- .pull-right
+            //-   strong PPPP <br/>
+            //-   | per PPP
+            //- span {{ qd.distance | number: 2 }} miles away <br/>
+            //- | M-F:
 
-    .col-sm-9.pl-0
+    .col-sm-9
       #map

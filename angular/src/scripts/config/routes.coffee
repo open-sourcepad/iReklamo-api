@@ -40,5 +40,5 @@ angular.module('iReklamo').config ($stateProvider, $urlRouterProvider) ->
       views:
         'content@dashboard':
           templateUrl: 'views/reklamo/index.html'
-          controller: 'SearchParkingGarageCtrl'
+          controller: 'ReklamoCtrl'
 

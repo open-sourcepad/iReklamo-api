@@ -1,6 +1,6 @@
 angular.module('iReklamo').factory 'Map',
-  [ 'Garage', '$filter', '$rootScope', '$sessionStorage',
-   ( Garage,   $filter,   $rootScope,   $sessionStorage ) ->
+  [ 'Complaint', '$filter', '$rootScope', '$sessionStorage',
+   ( Complaint,   $filter,   $rootScope,   $sessionStorage ) ->
 
     map = null
     marker = null
@@ -23,20 +23,19 @@ angular.module('iReklamo').factory 'Map',
             ]
           }]
 
-      addLabeledMarker: (garage, active, interval) ->
+      addLabeledMarker: (complaint, active) ->
         color = if active then 'green' else 'blue'
-        interval ||= 'day'
 
-        if garage.latitude && garage.longitude
+        if complaint.latitude && complaint.longitude
           mrkr = new RichMarker
             map: map.map
-            position: new google.maps.LatLng(garage.latitude, garage.longitude)
+            position: new google.maps.LatLng(complaint.latitude, complaint.longitude)
             draggable: false
             flat: true
             content: """
-              <div id="pin-#{garage.id}" class="map-pins #{color}-pin" title="#{garage.name}">
-                <div class="price">
-                  <div class="amount">$#{garage.rate(interval).member}</div>
+              <div id="pin-#{complaint.id}" class="map-pins #{color}-pin" title="#{complaint.title}">
+                <div class="pin-icon">
+                  <i class="fa fa-wrench fa-2x"></i>
                 </div>
               </div>
             """
@@ -47,30 +46,20 @@ angular.module('iReklamo').factory 'Map',
 
             infoWindow.close()
             infoWindow.setOptions
-              content: this.markerInfo(garage)
-              position: { lat: garage.latitude, lng: garage.longitude }
+              content: this.markerInfo(complaint)
+              position: { lat: complaint.latitude, lng: complaint.longitude }
               pixelOffset: new google.maps.Size(0, -40)
 
             infoWindow.open map.map
             $rootScope.$emit "infoWindow", "opened"
-            $sessionStorage.referrer = 'map'
 
       markerInfo: (g) ->
         """
         <div class='infowindow-scrollfix'>
-          <span class='provider-name'><strong>#{g.service_provider_name}</strong></span><br>
-          <strong>#{g.name}</strong><br>
-          #{g.address1}<br>
-          #{g.city}, #{g.postal_code}<br><br>
-          <table class='table table-condensed table-striped'><thead><tr>
-          <th>Pricing</th><th>Member</th><th>Non-member</th></tr>
-          <tbody>
-          <tr><td>Monthly</td><td colspan='2' class='text-center'>$#{g.rate('month').member}</td></tr>
-          <tr><td>Early Bird</td><td class='text-right'>$#{g.rate('day', 'Early-Bird').member}</td><td class='text-right'>$#{g.rate('day', 'Early-Bird').non_member}</td></tr>
-          <tr><td>Daily</td><td class='text-right'>$#{g.rate('day').member}</td><td class='text-right'>$#{g.rate('day').non_member}</td></tr>
-          <tr><td>Evening</td><td class='text-right'>$#{g.rate('day', 'Evening').member}</td><td class='text-right'>$#{g.rate('day', 'Evening').non_member}</td></tr>
-          </tbody></table>
-          <a href='/#/garage/#{g.id}'>More Details</a>
+          <h4 class='complaint-title'>#{g.title}</h4>
+          <div><img src="http://localhost:3000#{g.image_url}"></div>
+          <p class="complaint-description">#{g.description}</p>
+          <a href='/#/reklamo/#{g.id}'>More Details</a>
         </div>
         """
 
@@ -111,8 +100,8 @@ angular.module('iReklamo').factory 'Map',
 
         { lat: location.lat(), lng: location.lng() }
 
-    google.maps.Map::setPin = (garage, active = false, open = false) ->
-      el = angular.element "#pin-#{garage.id}"
+    google.maps.Map::setPin = (complaint, active = false, open = false) ->
+      el = angular.element "#pin-#{complaint.id}"
       el.trigger "click" if open
 
       if active
@@ -120,8 +109,8 @@ angular.module('iReklamo').factory 'Map',
       else
         el.removeClass "green-pin"
 
-    google.maps.Map::refreshOverlay = (garage, interval) ->
-      angular.element("#pin-#{garage.id} .amount").text "$" + garage.rate(interval).member
+    # google.maps.Map::refreshOverlay = (complaint, interval) ->
+    #   angular.element("#pin-#{complaint.id} .amount").text "$" + complaint.rate(interval).member
 
     google.maps.Map::getCurrentBoundRadius = ->
       bounds = this.getBounds()
@@ -136,6 +125,7 @@ angular.module('iReklamo').factory 'Map',
       lon2 = ne.lng() / 57.2958
       # distance = circle radius from center to Northeast corner of bounds
       radius = r * Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1))
+      radius / 1.5
       # convert to meters
       # radius = radius*1609.34
 
