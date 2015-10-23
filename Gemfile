@@ -23,3 +23,16 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
+
+group :test do
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'shoulda-matchers', '2.8.0'
+  gem 'rspec-rails'
+  gem 'spring-commands-rspec'
+end
+
+group :darwin, :development, :test do
+  gem 'rb-fsevent'
+end
