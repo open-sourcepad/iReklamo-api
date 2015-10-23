@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
   validates :email_address, :password, presence: true
 
   has_many :complaints
-  
+  has_many :comments
+
   after_create :generate_access_token
 
   def generate_access_token
@@ -16,5 +17,4 @@ class User < ActiveRecord::Base
     end
     save
   end
-
 end

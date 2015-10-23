@@ -7,8 +7,9 @@ Rails.application.routes.draw do
         post 'login'
       end
 
-      resources :complaints, only: [:create], controller: "users/complaints"
-
+      resources :complaints, only: [:create], controller: "users/complaints" do
+        resources :comments, controller: "comments"
+      end
     end
   end
 end
