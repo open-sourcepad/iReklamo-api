@@ -8,4 +8,14 @@ json.complaint do
     category
   )
   json.image_url complaint.image.url
+
+  json.comments do
+    complaint.comments do |comment|
+      json.id comment.id
+      json.title comment.title
+      json.description comment.description
+    end
+  end
+
+  json.likes complaint.likes.count
 end
