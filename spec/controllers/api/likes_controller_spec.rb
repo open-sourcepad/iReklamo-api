@@ -13,5 +13,18 @@ RSpec.describe Api::LikesController do
         expect(user.likes.length).to eq 1
       end
     end
+
+    context 'can\'t like twice' do
+      it 'is not fetch' do
+        user = create(:user)
+        complaint = create(:complaint, user: user)
+        Like.create(complaint_id: complaint.id, user_id: user.id)
+
+        post :create, user_id: user.id, complaint_id: complaint.id
+
+        expect(complaint.likes.length).to eq 1
+        expect(response.status).to eq 422
+      end
+    end
   end
 end

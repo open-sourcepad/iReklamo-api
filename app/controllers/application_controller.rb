@@ -7,4 +7,7 @@ class ApplicationController < ActionController::Base
     render json: {success: "false", message: "Unauthorized Access"}, status: 401 unless @user
   end
 
+  def render_error
+    render json: 'Error', status: :unprocessable_entity
+  end
 end
