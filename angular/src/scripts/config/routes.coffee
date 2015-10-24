@@ -1,5 +1,5 @@
 angular.module('iReklamo').config ($stateProvider, $urlRouterProvider) ->
-  $urlRouterProvider.otherwise '/home'
+  $urlRouterProvider.otherwise '/'
 
   $stateProvider
     .state 'root',

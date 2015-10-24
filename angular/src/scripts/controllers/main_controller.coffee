@@ -21,5 +21,5 @@ angular.module('iReklamo').controller 'MainCtrl',
     $scope.logOut = ->
       Session.logout()
 
-      $state.go 'dashboard.reklamo'
+    $state.go 'dashboard.reklamo'
   ]
